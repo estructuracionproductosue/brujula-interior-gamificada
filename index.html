@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Brújula Interior Gamificada</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 *{
 margin:0;
@@ -16,347 +18,449 @@ box-sizing:border-box;
 
 body{
 font-family:'Poppins',sans-serif;
-background:linear-gradient(135deg,#fff5f7,#f8f1ec);
-min-height:100vh;
-color:#4b3b40;
+background:
+linear-gradient(135deg,#f8f1ed,#fff7fb);
 overflow-x:hidden;
+color:#5a4450;
 }
 
 .game-wrapper{
+width:100%;
 max-width:1400px;
 margin:auto;
-padding:30px 20px 60px;
-}
-
-.hero{
+padding:40px 20px 120px;
 position:relative;
-padding:45px 30px;
-border-radius:36px;
-background:linear-gradient(135deg,#fff,#fff7fb);
-box-shadow:0 20px 60px rgba(0,0,0,.08);
 overflow:hidden;
-margin-bottom:35px;
 }
 
-.hero::before{
-content:'';
+.bg-glow{
 position:absolute;
-width:450px;
-height:450px;
-background:radial-gradient(circle,#efb6c4 0%, transparent 70%);
-right:-150px;
-top:-180px;
-opacity:.35;
+width:700px;
+height:700px;
+background:radial-gradient(circle,#efb4c7 0%,transparent 70%);
+top:-300px;
+right:-200px;
+opacity:.25;
+pointer-events:none;
+}
+
+.header{
+text-align:center;
+margin-bottom:40px;
+position:relative;
+z-index:2;
 }
 
 .badge{
 display:inline-block;
 padding:10px 18px;
-background:#f3e4e0;
 border-radius:999px;
+background:#f3e5e3;
 font-size:12px;
-font-weight:600;
-letter-spacing:1px;
-margin-bottom:20px;
-position:relative;
-z-index:2;
-}
-
-.hero h1{
-font-size:56px;
-line-height:1.1;
-margin-bottom:20px;
-background:linear-gradient(90deg,#d58ab1,#ef8f6d,#f0b55c);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-position:relative;
-z-index:2;
-}
-
-.hero p{
-max-width:900px;
-font-size:18px;
-line-height:1.8;
-position:relative;
-z-index:2;
-}
-
-.top-panel{
-display:grid;
-grid-template-columns:1fr 280px;
-gap:25px;
-margin-bottom:30px;
-}
-
-.question-box{
-background:rgba(255,255,255,.82);
-backdrop-filter:blur(12px);
-padding:35px;
-border-radius:30px;
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-position:relative;
-overflow:hidden;
-}
-
-.question-box::after{
-content:'';
-position:absolute;
-width:220px;
-height:220px;
-background:radial-gradient(circle,#f0c4d1 0%, transparent 70%);
-right:-90px;
-bottom:-90px;
-opacity:.45;
-}
-
-.question-number{
-font-size:13px;
-letter-spacing:1px;
 font-weight:700;
-color:#b3728a;
-margin-bottom:15px;
-}
-
-.question-text{
-font-size:34px;
-font-weight:700;
-line-height:1.35;
-position:relative;
-z-index:2;
-}
-
-.timer-card{
-background:linear-gradient(135deg,#d58ab1,#f0a36d);
-color:white;
-padding:30px;
-border-radius:30px;
-text-align:center;
-box-shadow:0 12px 35px rgba(0,0,0,.12);
-}
-
-.timer-title{
-font-size:13px;
 letter-spacing:1px;
-margin-bottom:10px;
-opacity:.9;
+margin-bottom:18px;
 }
 
-.timer-number{
-font-size:72px;
-font-weight:700;
+.header h1{
+font-size:58px;
 line-height:1;
-}
-
-.timer-sub{
-margin-top:10px;
-font-size:14px;
-opacity:.9;
-}
-
-.cards-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:24px;
-}
-
-.choice-card{
-background:white;
-border-radius:28px;
-overflow:hidden;
-box-shadow:0 12px 35px rgba(0,0,0,.08);
-transition:.35s ease;
-cursor:pointer;
-position:relative;
-}
-
-.choice-card:hover{
-transform:translateY(-10px) scale(1.02);
-box-shadow:0 20px 50px rgba(0,0,0,.14);
-}
-
-.choice-image{
-height:190px;
-background-size:cover;
-background-position:center;
-position:relative;
-}
-
-.choice-image::after{
-content:'';
-position:absolute;
-inset:0;
-background:linear-gradient(to top,rgba(0,0,0,.6),transparent);
-}
-
-.choice-level{
-position:absolute;
-top:16px;
-left:16px;
-padding:8px 14px;
-background:rgba(255,255,255,.88);
-backdrop-filter:blur(10px);
-border-radius:999px;
-font-size:11px;
-font-weight:700;
-letter-spacing:1px;
-z-index:2;
-}
-
-.choice-content{
-padding:24px;
-}
-
-.choice-title{
-font-size:24px;
-font-weight:700;
-margin-bottom:12px;
-}
-
-.choice-text{
-font-size:15px;
-line-height:1.8;
-color:#67575c;
-}
-
-.choice-points{
-margin-top:18px;
-font-size:13px;
-font-weight:600;
-color:#b06b83;
-}
-
-.result-box{
-margin-top:30px;
-padding:35px;
-border-radius:30px;
-background:linear-gradient(135deg,#fff,#fff8fb);
-box-shadow:0 12px 35px rgba(0,0,0,.08);
-display:none;
-}
-
-.result-box.active{
-display:block;
-animation:fadeIn .5s ease;
-}
-
-.result-box h2{
-font-size:36px;
-margin-bottom:15px;
-background:linear-gradient(90deg,#d58ab1,#ef8f6d);
+font-weight:800;
+margin-bottom:20px;
+background:linear-gradient(90deg,#d78cb5,#ef8f6f,#f2b15c);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 }
 
-.result-box p{
-font-size:18px;
-line-height:1.9;
+.header p{
+max-width:850px;
+margin:auto;
+font-size:19px;
+line-height:1.8;
 }
 
-.next-btn{
-margin-top:24px;
-padding:15px 26px;
-border:none;
-border-radius:999px;
-background:linear-gradient(135deg,#d58ab1,#ef8f6d);
-color:white;
-font-size:16px;
+.progress-wrapper{
+max-width:900px;
+margin:0 auto 35px;
+}
+
+.progress-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:12px;
+font-size:14px;
 font-weight:600;
-cursor:pointer;
-transition:.3s ease;
-}
-
-.next-btn:hover{
-transform:scale(1.05);
 }
 
 .progress-bar{
-height:12px;
-background:#f0e4e8;
+width:100%;
+height:16px;
+background:#f2dede;
 border-radius:999px;
 overflow:hidden;
-margin-top:25px;
 }
 
 .progress-fill{
 height:100%;
 width:0%;
-background:linear-gradient(90deg,#d58ab1,#ef8f6d,#f0b55c);
-transition:.5s ease;
+background:linear-gradient(90deg,#d78cb5,#ef8f6f,#f2b15c);
+transition:.6s ease;
+border-radius:999px;
 }
 
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(20px);} 
-to{opacity:1;transform:translateY(0);} 
+.timer-box{
+width:180px;
+height:180px;
+margin:0 auto 40px;
+border-radius:50%;
+background:
+linear-gradient(145deg,#fff,#f8d8de);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+box-shadow:
+0 15px 50px rgba(0,0,0,.08),
+inset 0 0 20px rgba(255,255,255,.9);
+position:relative;
+animation:pulse 4s infinite;
 }
 
-@media(max-width:900px){
-.top-panel{
-grid-template-columns:1fr;
+.timer-box::before{
+content:'';
+position:absolute;
+width:220px;
+height:220px;
+border-radius:50%;
+border:1px dashed rgba(217,132,162,.35);
+animation:spin 18s linear infinite;
 }
 
-.hero h1{
-font-size:40px;
+.timer-number{
+font-size:58px;
+font-weight:800;
+line-height:1;
+background:linear-gradient(90deg,#d78cb5,#ef8f6f);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.timer-sub{
+font-size:14px;
+margin-top:8px;
+font-weight:600;
+}
+
+.question-box{
+max-width:1000px;
+margin:auto;
+padding:45px;
+border-radius:35px;
+background:rgba(255,255,255,.75);
+backdrop-filter:blur(14px);
+box-shadow:0 20px 60px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.question-number{
+font-size:13px;
+font-weight:700;
+letter-spacing:2px;
+margin-bottom:18px;
+color:#b67c94;
 }
 
 .question-text{
-font-size:28px;
-}
-}
-
-@media(max-width:650px){
-.hero h1{
-font-size:32px;
-}
-
-.question-text{
-font-size:24px;
+font-size:34px;
+line-height:1.5;
+font-weight:700;
+margin-bottom:40px;
 }
 
 .cards-grid{
-grid-template-columns:1fr;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:22px;
 }
+
+.choice-card{
+position:relative;
+padding:28px;
+border-radius:28px;
+cursor:pointer;
+overflow:hidden;
+transition:.35s ease;
+min-height:280px;
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+color:white;
+text-align:left;
+box-shadow:0 15px 35px rgba(0,0,0,.12);
+}
+
+.choice-card:hover{
+transform:translateY(-10px) scale(1.02);
+}
+
+.card-overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(to top,rgba(0,0,0,.5),transparent);
+}
+
+.choice-content{
+position:relative;
+z-index:2;
+}
+
+.choice-title{
+font-size:22px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.choice-text{
+font-size:15px;
+line-height:1.7;
+}
+
+.card-1{
+background:
+linear-gradient(135deg,#d58ab1,#ef8f6d);
+}
+
+.card-2{
+background:
+linear-gradient(135deg,#ef8f6d,#f2b15c);
+}
+
+.card-3{
+background:
+linear-gradient(135deg,#d7a0c4,#c88ab7);
+}
+
+.card-4{
+background:
+linear-gradient(135deg,#caa27f,#ef8f6d);
+}
+
+.card-5{
+background:
+linear-gradient(135deg,#e2a0b2,#f2b15c);
+}
+
+.result-box{
+display:none;
+max-width:1000px;
+margin:60px auto 0;
+padding:50px;
+border-radius:35px;
+background:rgba(255,255,255,.82);
+backdrop-filter:blur(15px);
+text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,.08);
+}
+
+.result-box.active{
+display:block;
+animation:fadeIn .8s ease;
+}
+
+.result-title{
+font-size:46px;
+font-weight:800;
+margin-bottom:20px;
+background:linear-gradient(90deg,#d78cb5,#ef8f6f,#f2b15c);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.result-text{
+font-size:20px;
+line-height:2;
+max-width:820px;
+margin:auto;
+}
+
+.start-screen{
+max-width:1000px;
+margin:auto;
+padding:70px 40px;
+border-radius:35px;
+background:rgba(255,255,255,.78);
+backdrop-filter:blur(15px);
+box-shadow:0 20px 60px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.start-screen h2{
+font-size:46px;
+margin-bottom:25px;
+font-weight:800;
+background:linear-gradient(90deg,#d78cb5,#ef8f6f,#f2b15c);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.start-screen p{
+font-size:20px;
+line-height:2;
+max-width:850px;
+margin:auto auto 40px;
+}
+
+.start-btn{
+padding:24px 46px;
+border:none;
+border-radius:999px;
+font-size:20px;
+font-weight:700;
+cursor:pointer;
+color:white;
+background:
+linear-gradient(135deg,#d58ab1,#ef8f6d,#f2b15c);
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+transition:.35s ease;
+}
+
+.start-btn:hover{
+transform:scale(1.05);
+}
+
+@keyframes spin{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.03);}
+100%{transform:scale(1);}
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@media(max-width:768px){
+
+.header h1{
+font-size:42px;
+}
+
+.question-text{
+font-size:26px;
+}
+
+.timer-box{
+width:140px;
+height:140px;
+}
+
+.timer-number{
+font-size:42px;
+}
+
+.start-screen h2{
+font-size:34px;
+}
+
+.start-screen p{
+font-size:17px;
+}
+
 }
 
 </style>
 </head>
+
 <body>
 
 <div class="game-wrapper">
 
-<div class="hero">
-<div class="badge">INNER DEVELOPMENT GOALS · EXPERIENCIA GAMIFICADA</div>
+<div class="bg-glow"></div>
+
+<div class="header">
+<div class="badge">INNER DEVELOPMENT GOALS</div>
+
 <h1>Brújula Interior</h1>
+
 <p>
-Explora preguntas sobre propósito, consciencia y proyección de vida. Todas las respuestas son válidas, pero cada elección refleja distintos niveles de crecimiento interior.
+Explora decisiones, propósito y dirección personal a través de una experiencia gamificada de reflexión interior.
 </p>
 </div>
 
-<div class="top-panel">
+<div class="start-screen" id="startScreen">
 
-<div class="question-box">
-<div class="question-number" id="questionNumber">PREGUNTA 1 DE 5</div>
-<div class="question-text" id="questionText"></div>
+<h2>✨ Iniciar exploración interior</h2>
+
+<p>
+Antes de comenzar, respira profundamente y conecta con tu intuición.<br><br>
+
+Cada decisión representa una dirección distinta de tu brújula interior.<br><br>
+
+No existen respuestas incorrectas. Solo caminos de crecimiento.
+</p>
+
+<button class="start-btn" onclick="startGame()">
+Comenzar experiencia
+</button>
+
+</div>
+
+<div id="gameArea" style="display:none;">
+
+<div class="progress-wrapper">
+
+<div class="progress-top">
+<span id="questionNumber">Pregunta 1/5</span>
+<span>Experiencia IDGs</span>
+</div>
 
 <div class="progress-bar">
 <div class="progress-fill" id="progressFill"></div>
 </div>
-</div>
-
-<div class="timer-card">
-<div class="timer-title">TIEMPO INTERIOR</div>
-<div class="timer-number" id="timer">20</div>
-<div class="timer-sub">segundos para reflexionar</div>
-</div>
 
 </div>
+
+<div class="timer-box">
+
+<div class="timer-number" id="timer">
+60
+</div>
+
+<div class="timer-sub">
+segundos para reflexionar
+</div>
+
+</div>
+
+<div class="question-box">
+
+<div class="question-text" id="questionText"></div>
 
 <div class="cards-grid" id="cardsGrid"></div>
 
+</div>
+
+</div>
+
 <div class="result-box" id="resultBox">
-<h2 id="resultTitle"></h2>
-<p id="resultText"></p>
-<button class="next-btn" onclick="nextQuestion()">Continuar exploración</button>
-<button class="next-btn" onclick="showProjection()" style="margin-left:12px;background:linear-gradient(135deg,#ef8f6d,#d58ab1);">Mirar tu proyección</button>
+
+<div class="result-title">
+Tu proyección interior
+</div>
+
+<div class="result-text" id="resultText"></div>
+
 </div>
 
 </div>
@@ -364,58 +468,187 @@ Explora preguntas sobre propósito, consciencia y proyección de vida. Todas las
 <script>
 
 const questions = [
+
 {
-question:'¿Qué guía más tus decisiones cuando enfrentas un nuevo desafío?',
+question:"¿Qué guía principalmente tus decisiones importantes?",
 options:[
 {
-title:'Claridad Interior',
-level:'CONSCIENCIA EXPANSIVA',
-text:'Escuchas tu intuición y conectas tus decisiones con propósito profundo.',
+title:"Visión consciente",
+text:"Escuchar mi propósito interior y actuar desde la autenticidad.",
 points:5,
-image:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop'
+class:"card-1"
 },
 {
-title:'Aprendizaje',
-level:'CRECIMIENTO',
-text:'Ves cada desafío como una oportunidad para evolucionar.',
+title:"Aprendizaje",
+text:"Cada experiencia representa una oportunidad de evolución.",
 points:4,
-image:'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop'
+class:"card-2"
 },
 {
-title:'Seguridad',
-level:'ESTABILIDAD',
-text:'Prefieres caminos conocidos y emocionalmente seguros.',
+title:"Equilibrio",
+text:"Intento armonizar bienestar personal y entorno.",
 points:3,
-image:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop'
+class:"card-3"
+},
+{
+title:"Seguridad",
+text:"Prefiero caminos conocidos y estables.",
+points:2,
+class:"card-4"
+},
+{
+title:"Impulso inmediato",
+text:"Decido desde la emoción del momento.",
+points:1,
+class:"card-5"
 }
 ]
 },
+
 {
-question:'¿Cómo imaginas tu impacto en el mundo dentro de 10 años?',
+question:"¿Cómo reaccionas frente a la incertidumbre?",
 options:[
 {
-title:'Transformar Comunidades',
-level:'LIDERAZGO HUMANO',
-text:'Sueñas con inspirar cambios positivos y bienestar colectivo.',
+title:"Transformación",
+text:"La veo como una oportunidad de crecimiento.",
 points:5,
-image:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop'
+class:"card-1"
 },
 {
-title:'Crear Innovación',
-level:'VISIÓN',
-text:'Deseas impulsar ideas y soluciones sostenibles.',
+title:"Curiosidad",
+text:"Intento comprender antes de reaccionar.",
 points:4,
-image:'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop'
+class:"card-2"
 },
 {
-title:'Construir Estabilidad',
-level:'PROGRESO PERSONAL',
-text:'Quieres consolidar una vida equilibrada y significativa.',
+title:"Adaptación",
+text:"Me ajusto poco a poco.",
 points:3,
-image:'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop'
+class:"card-3"
+},
+{
+title:"Precaución",
+text:"Evito riesgos innecesarios.",
+points:2,
+class:"card-4"
+},
+{
+title:"Bloqueo",
+text:"Me cuesta avanzar cuando no controlo el panorama.",
+points:1,
+class:"card-5"
+}
+]
+},
+
+{
+question:"¿Qué representa para ti el propósito de vida?",
+options:[
+{
+title:"Impacto positivo",
+text:"Contribuir conscientemente al bienestar colectivo.",
+points:5,
+class:"card-1"
+},
+{
+title:"Evolución personal",
+text:"Convertirme en una mejor versión de mí.",
+points:4,
+class:"card-2"
+},
+{
+title:"Estabilidad",
+text:"Construir una vida tranquila y sostenible.",
+points:3,
+class:"card-3"
+},
+{
+title:"Reconocimiento",
+text:"Lograr éxito visible y metas externas.",
+points:2,
+class:"card-4"
+},
+{
+title:"Supervivencia",
+text:"Resolver las necesidades inmediatas.",
+points:1,
+class:"card-5"
+}
+]
+},
+
+{
+question:"¿Qué fortalece más tu brújula interior?",
+options:[
+{
+title:"Autoconciencia",
+text:"Reflexionar sobre quién soy y hacia dónde voy.",
+points:5,
+class:"card-1"
+},
+{
+title:"Aprendizaje constante",
+text:"Explorar nuevas perspectivas.",
+points:4,
+class:"card-2"
+},
+{
+title:"Disciplina",
+text:"Mantener hábitos y estructura.",
+points:3,
+class:"card-3"
+},
+{
+title:"Experiencia",
+text:"Aprender mediante ensayo y error.",
+points:2,
+class:"card-4"
+},
+{
+title:"Instinto",
+text:"Seguir impulsos espontáneos.",
+points:1,
+class:"card-5"
+}
+]
+},
+
+{
+question:"¿Qué deseas proyectar hacia el futuro?",
+options:[
+{
+title:"Conciencia expansiva",
+text:"Inspirar transformación positiva en otros.",
+points:5,
+class:"card-1"
+},
+{
+title:"Crecimiento",
+text:"Seguir evolucionando continuamente.",
+points:4,
+class:"card-2"
+},
+{
+title:"Equilibrio",
+text:"Mantener armonía personal.",
+points:3,
+class:"card-3"
+},
+{
+title:"Estabilidad",
+text:"Conservar seguridad y control.",
+points:2,
+class:"card-4"
+},
+{
+title:"Exploración",
+text:"Descubrir caminos sin expectativas fijas.",
+points:1,
+class:"card-5"
 }
 ]
 }
+
 ];
 
 let currentQuestion = 0;
@@ -423,122 +656,138 @@ let score = 0;
 let timer = 60;
 let interval;
 
+const startScreen = document.getElementById('startScreen');
+const gameArea = document.getElementById('gameArea');
 const questionText = document.getElementById('questionText');
 const cardsGrid = document.getElementById('cardsGrid');
-const resultBox = document.getElementById('resultBox');
-const resultTitle = document.getElementById('resultTitle');
-const resultText = document.getElementById('resultText');
-const timerElement = document.getElementById('timer');
-const progressFill = document.getElementById('progressFill');
 const questionNumber = document.getElementById('questionNumber');
+const progressFill = document.getElementById('progressFill');
+const timerEl = document.getElementById('timer');
+const resultBox = document.getElementById('resultBox');
+const resultText = document.getElementById('resultText');
+
+function startGame(){
+
+startScreen.style.display='none';
+gameArea.style.display='block';
+
+loadQuestion();
+
+}
 
 function loadQuestion(){
+
 clearInterval(interval);
 
 timer = 60;
-timerElement.innerText = timer;
+timerEl.innerText = timer;
 
 interval = setInterval(()=>{
-timer--;
-timerElement.innerText = timer;
 
-if(timer <= 0){
-clearInterval(interval);
+timer--;
+timerEl.innerText = timer;
+
+if(timer<=0){
 nextQuestion();
 }
+
 },1000);
 
 const q = questions[currentQuestion];
+
+questionNumber.innerText =
+`Pregunta ${currentQuestion+1}/${questions.length}`;
+
+progressFill.style.width =
+`${((currentQuestion)/questions.length)*100}%`;
+
 questionText.innerText = q.question;
-questionNumber.innerText = `PREGUNTA ${currentQuestion+1} DE ${questions.length}`;
 
-progressFill.style.width = `${(currentQuestion/questions.length)*100}%`;
-
-cardsGrid.innerHTML = '';
-resultBox.classList.remove('active');
+cardsGrid.innerHTML='';
 
 q.options.forEach(option=>{
+
 const card = document.createElement('div');
-card.className = 'choice-card';
+
+card.className =
+`choice-card ${option.class}`;
 
 card.innerHTML = `
-<div class="choice-image" style="background-image:url('${option.image}')">
-<div class="choice-level">${option.level}</div>
-</div>
+<div class="card-overlay"></div>
 
 <div class="choice-content">
-<div class="choice-title">${option.title}</div>
-<div class="choice-text">${option.text}</div>
-<div class="choice-points">Explora esta dirección de tu brújula interior</div>
+
+<div class="choice-title">
+${option.title}
+</div>
+
+<div class="choice-text">
+${option.text}
+</div>
+
 </div>
 `;
 
-card.onclick = ()=>selectOption(option);
-cardsGrid.appendChild(card);
-});
-}
+card.onclick = ()=>{
 
-function selectOption(option){
-clearInterval(interval);
 score += option.points;
 
-resultBox.classList.add('active');
-resultTitle.innerText = option.title;
-resultText.innerText = `Tu elección refleja una orientación hacia ${option.level.toLowerCase()} y una forma particular de proyectar tu brújula interior.`;
+nextQuestion();
 
-progressFill.style.width = `${((currentQuestion+1)/questions.length)*100}%`;
+};
+
+cardsGrid.appendChild(card);
+
+});
+
 }
 
 function nextQuestion(){
+
+clearInterval(interval);
+
 currentQuestion++;
 
-if(currentQuestion >= questions.length){
-showFinal();
-return;
-}
+if(currentQuestion < questions.length){
 
 loadQuestion();
+
+}else{
+
+showResult();
+
 }
 
-function showProjection(){
+}
+
+function showResult(){
+
+gameArea.style.display='none';
 
 resultBox.classList.add('active');
 
-let projection = '';
+let result='';
 
-if(score >= 23){
-projection = 'Tu brújula interior refleja una proyección expansiva, consciente y orientada al liderazgo humano positivo.';
-}else if(score >= 18){
-projection = 'Tu brújula interior muestra crecimiento constante, apertura y capacidad de evolución personal.';
+if(score >= 22){
+
+result =
+'Tu brújula interior refleja una consciencia expansiva, liderazgo humano positivo y una visión profundamente orientada al crecimiento colectivo.';
+
+}else if(score >= 17){
+
+result =
+'Tu proyección interior muestra apertura al aprendizaje, evolución constante y capacidad de adaptación consciente.';
+
 }else{
-projection = 'Tu brújula interior se orienta hacia estabilidad, equilibrio y fortalecimiento progresivo.';
-}
 
-resultTitle.innerText = 'Tu proyección interior';
-resultText.innerText = projection;
+result =
+'Tu brújula interior se encuentra fortaleciendo equilibrio, estabilidad y construcción progresiva de propósito personal.';
 
 }
 
-function showFinal(){
-cardsGrid.innerHTML = '';
-resultBox.classList.add('active');
-questionText.innerText = 'Exploración completada';
-questionNumber.innerText = 'RESULTADO FINAL';
+resultText.innerText = result;
 
-let profile = '';
-
-if(score >= 8){
-profile = 'Tu brújula interior refleja visión expansiva, consciencia y liderazgo humano.';
-}else{
-profile = 'Tu brújula interior busca equilibrio, estabilidad y crecimiento gradual.';
 }
-
-resultTitle.innerText = 'Perfil de tu brújula interior';
-resultText.innerText = profile;
-progressFill.style.width = '100%';
-}
-
-loadQuestion();
 
 </script>
 

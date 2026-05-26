@@ -6,6 +6,7 @@
 <title>Brújula Interior Gamificada</title>
 
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 *{
@@ -79,6 +80,48 @@ font-size:18px;
 line-height:1.8;
 position:relative;
 z-index:2;
+}
+
+.start-screen{
+background:white;
+padding:40px;
+border-radius:30px;
+text-align:center;
+box-shadow:0 12px 35px rgba(0,0,0,.08);
+margin-bottom:30px;
+}
+
+.start-screen h2{
+font-size:38px;
+margin-bottom:18px;
+color:#5d4450;
+}
+
+.start-screen p{
+font-size:18px;
+line-height:1.8;
+max-width:850px;
+margin:auto auto 30px;
+}
+
+.start-btn{
+padding:18px 34px;
+border:none;
+border-radius:999px;
+background:linear-gradient(135deg,#d58ab1,#ef8f6d);
+color:white;
+font-size:18px;
+font-weight:600;
+cursor:pointer;
+transition:.3s ease;
+}
+
+.start-btn:hover{
+transform:scale(1.05);
+}
+
+.game-content{
+display:none;
 }
 
 .top-panel{
@@ -218,13 +261,6 @@ line-height:1.8;
 color:#67575c;
 }
 
-.choice-points{
-margin-top:18px;
-font-size:13px;
-font-weight:600;
-color:#b06b83;
-}
-
 .result-box{
 margin-top:30px;
 padding:35px;
@@ -262,11 +298,6 @@ color:white;
 font-size:16px;
 font-weight:600;
 cursor:pointer;
-transition:.3s ease;
-}
-
-.next-btn:hover{
-transform:scale(1.05);
 }
 
 .progress-bar{
@@ -285,11 +316,12 @@ transition:.5s ease;
 }
 
 @keyframes fadeIn{
-from{opacity:0;transform:translateY(20px);} 
-to{opacity:1;transform:translateY(0);} 
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
 
 @media(max-width:900px){
+
 .top-panel{
 grid-template-columns:1fr;
 }
@@ -301,51 +333,78 @@ font-size:40px;
 .question-text{
 font-size:28px;
 }
-}
 
-@media(max-width:650px){
-.hero h1{
-font-size:32px;
-}
-
-.question-text{
-font-size:24px;
-}
-
-.cards-grid{
-grid-template-columns:1fr;
-}
 }
 
 </style>
 </head>
+
 <body>
 
 <div class="game-wrapper">
 
 <div class="hero">
-<div class="badge">INNER DEVELOPMENT GOALS · EXPERIENCIA GAMIFICADA</div>
-<h1>Brújula Interior</h1>
-<p>
-Explora preguntas sobre propósito, consciencia y proyección de vida. Todas las respuestas son válidas, pero cada elección refleja distintos niveles de crecimiento interior.
-</p>
+
+<div class="badge">
+INNER DEVELOPMENT GOALS · EXPERIENCIA GAMIFICADA
 </div>
+
+<h1>Brújula Interior</h1>
+
+<p>
+Explora preguntas sobre propósito, consciencia y proyección de vida.
+Todas las respuestas son válidas y reflejan distintos caminos de crecimiento interior.
+</p>
+
+</div>
+
+<!-- PANTALLA DE INICIO -->
+<div class="start-screen" id="startScreen">
+
+<h2>✨ Inicia tu exploración interior</h2>
+
+<p>
+Dispones de 1 minuto por pregunta para reflexionar antes de elegir.
+No existen respuestas incorrectas: cada decisión representa una dirección distinta de tu brújula interior.
+</p>
+
+<button class="start-btn" onclick="startGame()">
+Comenzar experiencia
+</button>
+
+</div>
+
+<!-- CONTENIDO DEL JUEGO -->
+<div class="game-content" id="gameContent">
 
 <div class="top-panel">
 
 <div class="question-box">
-<div class="question-number" id="questionNumber">PREGUNTA 1 DE 5</div>
+
+<div class="question-number" id="questionNumber"></div>
+
 <div class="question-text" id="questionText"></div>
 
 <div class="progress-bar">
 <div class="progress-fill" id="progressFill"></div>
 </div>
+
 </div>
 
 <div class="timer-card">
-<div class="timer-title">TIEMPO INTERIOR</div>
-<div class="timer-number" id="timer">20</div>
-<div class="timer-sub">segundos para reflexionar</div>
+
+<div class="timer-title">
+TIEMPO INTERIOR
+</div>
+
+<div class="timer-number" id="timer">
+60
+</div>
+
+<div class="timer-sub">
+segundos para reflexionar
+</div>
+
 </div>
 
 </div>
@@ -353,10 +412,21 @@ Explora preguntas sobre propósito, consciencia y proyección de vida. Todas las
 <div class="cards-grid" id="cardsGrid"></div>
 
 <div class="result-box" id="resultBox">
+
 <h2 id="resultTitle"></h2>
+
 <p id="resultText"></p>
-<button class="next-btn" onclick="nextQuestion()">Continuar exploración</button>
-<button class="next-btn" onclick="showProjection()" style="margin-left:12px;background:linear-gradient(135deg,#ef8f6d,#d58ab1);">Mirar tu proyección</button>
+
+<button class="next-btn" onclick="nextQuestion()">
+Continuar exploración
+</button>
+
+<button class="next-btn" onclick="restartGame()" style="margin-left:12px;">
+Volver a explorar
+</button>
+
+</div>
+
 </div>
 
 </div>
@@ -364,58 +434,142 @@ Explora preguntas sobre propósito, consciencia y proyección de vida. Todas las
 <script>
 
 const questions = [
+
 {
 question:'¿Qué guía más tus decisiones cuando enfrentas un nuevo desafío?',
 options:[
 {
 title:'Claridad Interior',
-level:'CONSCIENCIA EXPANSIVA',
-text:'Escuchas tu intuición y conectas tus decisiones con propósito profundo.',
+level:'Consciencia',
+text:'Escuchas tu intuición y conectas con propósito.',
 points:5,
 image:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Aprendizaje',
-level:'CRECIMIENTO',
-text:'Ves cada desafío como una oportunidad para evolucionar.',
+level:'Crecimiento',
+text:'Cada experiencia representa evolución.',
 points:4,
 image:'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Seguridad',
-level:'ESTABILIDAD',
-text:'Prefieres caminos conocidos y emocionalmente seguros.',
+level:'Equilibrio',
+text:'Prefieres estabilidad y calma emocional.',
 points:3,
 image:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop'
 }
 ]
 },
+
 {
 question:'¿Cómo imaginas tu impacto en el mundo dentro de 10 años?',
 options:[
 {
 title:'Transformar Comunidades',
-level:'LIDERAZGO HUMANO',
-text:'Sueñas con inspirar cambios positivos y bienestar colectivo.',
+level:'Liderazgo',
+text:'Deseas inspirar cambios positivos.',
 points:5,
 image:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Crear Innovación',
-level:'VISIÓN',
-text:'Deseas impulsar ideas y soluciones sostenibles.',
+level:'Visión',
+text:'Impulsar ideas sostenibles y humanas.',
 points:4,
 image:'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Construir Estabilidad',
-level:'PROGRESO PERSONAL',
-text:'Quieres consolidar una vida equilibrada y significativa.',
+level:'Progreso',
+text:'Consolidar una vida equilibrada.',
 points:3,
 image:'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop'
 }
 ]
+},
+
+{
+question:'¿Qué valor consideras esencial para tu crecimiento personal?',
+options:[
+{
+title:'Empatía',
+level:'Humanidad',
+text:'Comprender profundamente a otros.',
+points:5,
+image:'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1200&auto=format&fit=crop'
+},
+{
+title:'Disciplina',
+level:'Determinación',
+text:'Avanzar con enfoque y constancia.',
+points:4,
+image:'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1200&auto=format&fit=crop'
+},
+{
+title:'Calma',
+level:'Equilibrio',
+text:'Mantener serenidad interior.',
+points:3,
+image:'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1200&auto=format&fit=crop'
 }
+]
+},
+
+{
+question:'¿Qué representa para ti una vida con propósito?',
+options:[
+{
+title:'Inspirar Personas',
+level:'Impacto',
+text:'Ayudar a otros a crecer y transformarse.',
+points:5,
+image:'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop'
+},
+{
+title:'Crear Bienestar',
+level:'Armonía',
+text:'Construir estabilidad emocional y profesional.',
+points:4,
+image:'https://images.unsplash.com/photo-1497215842964-222b430dc094?q=80&w=1200&auto=format&fit=crop'
+},
+{
+title:'Encontrar Paz',
+level:'Serenidad',
+text:'Vivir con equilibrio y autenticidad.',
+points:3,
+image:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop'
+}
+]
+},
+
+{
+question:'¿Qué deseas fortalecer más en esta etapa de tu vida?',
+options:[
+{
+title:'Consciencia',
+level:'Expansión',
+text:'Comprender mejor quién eres.',
+points:5,
+image:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200&auto=format&fit=crop'
+},
+{
+title:'Resiliencia',
+level:'Fortaleza',
+text:'Superar desafíos con aprendizaje.',
+points:4,
+image:'https://images.unsplash.com/photo-1500534623283-312aade485b7?q=80&w=1200&auto=format&fit=crop'
+},
+{
+title:'Confianza',
+level:'Seguridad',
+text:'Creer más en tus capacidades.',
+points:3,
+image:'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1200&auto=format&fit=crop'
+}
+]
+}
+
 ];
 
 let currentQuestion = 0;
@@ -423,42 +577,55 @@ let score = 0;
 let timer = 60;
 let interval;
 
-const questionText = document.getElementById('questionText');
-const cardsGrid = document.getElementById('cardsGrid');
-const resultBox = document.getElementById('resultBox');
-const resultTitle = document.getElementById('resultTitle');
-const resultText = document.getElementById('resultText');
-const timerElement = document.getElementById('timer');
-const progressFill = document.getElementById('progressFill');
-const questionNumber = document.getElementById('questionNumber');
+function startGame(){
+
+document.getElementById('startScreen').style.display='none';
+document.getElementById('gameContent').style.display='block';
+
+loadQuestion();
+
+}
 
 function loadQuestion(){
+
 clearInterval(interval);
 
 timer = 60;
-timerElement.innerText = timer;
+document.getElementById('timer').innerText = timer;
 
 interval = setInterval(()=>{
+
 timer--;
-timerElement.innerText = timer;
+
+document.getElementById('timer').innerText = timer;
 
 if(timer <= 0){
+
 clearInterval(interval);
 nextQuestion();
+
 }
+
 },1000);
 
 const q = questions[currentQuestion];
-questionText.innerText = q.question;
-questionNumber.innerText = `PREGUNTA ${currentQuestion+1} DE ${questions.length}`;
 
-progressFill.style.width = `${(currentQuestion/questions.length)*100}%`;
+document.getElementById('questionText').innerText = q.question;
 
-cardsGrid.innerHTML = '';
-resultBox.classList.remove('active');
+document.getElementById('questionNumber').innerText =
+`PREGUNTA ${currentQuestion+1} DE ${questions.length}`;
+
+document.getElementById('progressFill').style.width =
+`${(currentQuestion/questions.length)*100}%`;
+
+document.getElementById('cardsGrid').innerHTML = '';
+
+document.getElementById('resultBox').classList.remove('active');
 
 q.options.forEach(option=>{
+
 const card = document.createElement('div');
+
 card.className = 'choice-card';
 
 card.innerHTML = `
@@ -469,76 +636,89 @@ card.innerHTML = `
 <div class="choice-content">
 <div class="choice-title">${option.title}</div>
 <div class="choice-text">${option.text}</div>
-<div class="choice-points">Explora esta dirección de tu brújula interior</div>
 </div>
 `;
 
 card.onclick = ()=>selectOption(option);
-cardsGrid.appendChild(card);
+
+document.getElementById('cardsGrid').appendChild(card);
+
 });
+
 }
 
 function selectOption(option){
+
 clearInterval(interval);
+
 score += option.points;
 
-resultBox.classList.add('active');
-resultTitle.innerText = option.title;
-resultText.innerText = `Tu elección refleja una orientación hacia ${option.level.toLowerCase()} y una forma particular de proyectar tu brújula interior.`;
+document.getElementById('resultBox').classList.add('active');
 
-progressFill.style.width = `${((currentQuestion+1)/questions.length)*100}%`;
+document.getElementById('resultTitle').innerText = option.title;
+
+document.getElementById('resultText').innerText =
+`Tu elección refleja una orientación hacia ${option.level.toLowerCase()} y una forma única de proyectar tu desarrollo interior.`;
+
+document.getElementById('progressFill').style.width =
+`${((currentQuestion+1)/questions.length)*100}%`;
+
 }
 
 function nextQuestion(){
+
 currentQuestion++;
 
 if(currentQuestion >= questions.length){
+
 showFinal();
+
 return;
+
 }
 
 loadQuestion();
-}
-
-function showProjection(){
-
-resultBox.classList.add('active');
-
-let projection = '';
-
-if(score >= 23){
-projection = 'Tu brújula interior refleja una proyección expansiva, consciente y orientada al liderazgo humano positivo.';
-}else if(score >= 18){
-projection = 'Tu brújula interior muestra crecimiento constante, apertura y capacidad de evolución personal.';
-}else{
-projection = 'Tu brújula interior se orienta hacia estabilidad, equilibrio y fortalecimiento progresivo.';
-}
-
-resultTitle.innerText = 'Tu proyección interior';
-resultText.innerText = projection;
 
 }
 
 function showFinal(){
-cardsGrid.innerHTML = '';
-resultBox.classList.add('active');
-questionText.innerText = 'Exploración completada';
-questionNumber.innerText = 'RESULTADO FINAL';
 
-let profile = '';
+document.getElementById('cardsGrid').innerHTML='';
 
-if(score >= 8){
-profile = 'Tu brújula interior refleja visión expansiva, consciencia y liderazgo humano.';
+document.getElementById('resultBox').classList.add('active');
+
+document.getElementById('questionText').innerText='Exploración completada';
+
+document.getElementById('questionNumber').innerText='RESULTADO FINAL';
+
+let profile='';
+
+if(score >= 23){
+
+profile='Tu brújula interior refleja liderazgo humano, visión consciente y capacidad de transformación positiva.';
+
+}else if(score >= 18){
+
+profile='Tu brújula interior muestra evolución constante, equilibrio y crecimiento personal progresivo.';
+
 }else{
-profile = 'Tu brújula interior busca equilibrio, estabilidad y crecimiento gradual.';
+
+profile='Tu brújula interior busca estabilidad, serenidad y fortalecimiento gradual.';
 }
 
-resultTitle.innerText = 'Perfil de tu brújula interior';
-resultText.innerText = profile;
-progressFill.style.width = '100%';
+document.getElementById('resultTitle').innerText='Tu proyección interior';
+
+document.getElementById('resultText').innerText=profile;
+
+document.getElementById('progressFill').style.width='100%';
+
 }
 
-loadQuestion();
+function restartGame(){
+
+location.reload();
+
+}
 
 </script>
 

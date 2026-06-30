@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -358,7 +359,6 @@ Todas las respuestas son válidas y reflejan distintos caminos de crecimiento in
 
 </div>
 
-<!-- PANTALLA DE INICIO -->
 <div class="start-screen" id="startScreen">
 
 <h2>✨ Inicia tu exploración interior</h2>
@@ -374,7 +374,6 @@ Comenzar experiencia
 
 </div>
 
-<!-- CONTENIDO DEL JUEGO -->
 <div class="game-content" id="gameContent">
 
 <div class="top-panel">
@@ -429,8 +428,6 @@ Volver a explorar
 
 </div>
 
-</div>
-
 <script>
 
 const questions = [
@@ -441,22 +438,22 @@ options:[
 {
 title:'Claridad Interior',
 level:'Consciencia',
+category:'proposito',
 text:'Escuchas tu intuición y conectas con propósito.',
-points:5,
 image:'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Aprendizaje',
 level:'Crecimiento',
+category:'expansion',
 text:'Cada experiencia representa evolución.',
-points:4,
 image:'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Seguridad',
 level:'Equilibrio',
+category:'equilibrio',
 text:'Prefieres estabilidad y calma emocional.',
-points:3,
 image:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop'
 }
 ]
@@ -468,22 +465,22 @@ options:[
 {
 title:'Transformar Comunidades',
 level:'Liderazgo',
+category:'impacto',
 text:'Deseas inspirar cambios positivos.',
-points:5,
 image:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Crear Innovación',
 level:'Visión',
+category:'expansion',
 text:'Impulsar ideas sostenibles y humanas.',
-points:4,
 image:'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Construir Estabilidad',
 level:'Progreso',
+category:'equilibrio',
 text:'Consolidar una vida equilibrada.',
-points:3,
 image:'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop'
 }
 ]
@@ -495,22 +492,22 @@ options:[
 {
 title:'Empatía',
 level:'Humanidad',
+category:'impacto',
 text:'Comprender profundamente a otros.',
-points:5,
 image:'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Disciplina',
 level:'Determinación',
+category:'fortaleza',
 text:'Avanzar con enfoque y constancia.',
-points:4,
 image:'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Calma',
 level:'Equilibrio',
+category:'equilibrio',
 text:'Mantener serenidad interior.',
-points:3,
 image:'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1200&auto=format&fit=crop'
 }
 ]
@@ -522,22 +519,22 @@ options:[
 {
 title:'Inspirar Personas',
 level:'Impacto',
+category:'impacto',
 text:'Ayudar a otros a crecer y transformarse.',
-points:5,
 image:'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Crear Bienestar',
 level:'Armonía',
+category:'equilibrio',
 text:'Construir estabilidad emocional y profesional.',
-points:4,
 image:'https://images.unsplash.com/photo-1497215842964-222b430dc094?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Encontrar Paz',
 level:'Serenidad',
+category:'equilibrio',
 text:'Vivir con equilibrio y autenticidad.',
-points:3,
 image:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop'
 }
 ]
@@ -549,22 +546,22 @@ options:[
 {
 title:'Consciencia',
 level:'Expansión',
+category:'proposito',
 text:'Comprender mejor quién eres.',
-points:5,
 image:'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Resiliencia',
 level:'Fortaleza',
+category:'fortaleza',
 text:'Superar desafíos con aprendizaje.',
-points:4,
 image:'https://images.unsplash.com/photo-1500534623283-312aade485b7?q=80&w=1200&auto=format&fit=crop'
 },
 {
 title:'Confianza',
 level:'Seguridad',
+category:'fortaleza',
 text:'Creer más en tus capacidades.',
-points:3,
 image:'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1200&auto=format&fit=crop'
 }
 ]
@@ -573,7 +570,15 @@ image:'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?q=80&w=1200&
 ];
 
 let currentQuestion = 0;
-let score = 0;
+
+let profiles = {
+expansion:0,
+impacto:0,
+equilibrio:0,
+fortaleza:0,
+proposito:0
+};
+
 let timer = 60;
 let interval;
 
@@ -591,6 +596,7 @@ function loadQuestion(){
 clearInterval(interval);
 
 timer = 60;
+
 document.getElementById('timer').innerText = timer;
 
 interval = setInterval(()=>{
@@ -613,7 +619,7 @@ const q = questions[currentQuestion];
 document.getElementById('questionText').innerText = q.question;
 
 document.getElementById('questionNumber').innerText =
-`PREGUNTA ${currentQuestion+1} DE ${questions.length}`;
+`PREGUNTA ${currentQuestion + 1} DE ${questions.length}`;
 
 document.getElementById('progressFill').style.width =
 `${(currentQuestion/questions.length)*100}%`;
@@ -626,9 +632,10 @@ q.options.forEach(option=>{
 
 const card = document.createElement('div');
 
-card.className = 'choice-card';
+card.className='choice-card';
 
-card.innerHTML = `
+card.innerHTML=`
+
 <div class="choice-image" style="background-image:url('${option.image}')">
 <div class="choice-level">${option.level}</div>
 </div>
@@ -637,6 +644,7 @@ card.innerHTML = `
 <div class="choice-title">${option.title}</div>
 <div class="choice-text">${option.text}</div>
 </div>
+
 `;
 
 card.onclick = ()=>selectOption(option);
@@ -651,7 +659,7 @@ function selectOption(option){
 
 clearInterval(interval);
 
-score += option.points;
+profiles[option.category]++;
 
 document.getElementById('resultBox').classList.add('active');
 
@@ -685,50 +693,61 @@ function showFinal(){
 
 document.getElementById('cardsGrid').innerHTML='';
 
-document.getElementById('resultBox').classList.add('active');
-
 document.getElementById('questionText').innerText='Exploración completada';
 
 document.getElementById('questionNumber').innerText='RESULTADO FINAL';
 
-let title='';
-let profile='';
+document.getElementById('resultBox').classList.add('active');
 
-if(score >= 23){
+const dominant = Object.keys(profiles).reduce((a,b)=>
+profiles[a] >= profiles[b] ? a : b
+);
+
+let title='';
+let text='';
+
+if(dominant==='expansion'){
 
 title='Expansión y Aprendizaje';
 
-profile='Tu brújula hoy señala hacia la expansión y el aprendizaje. Durante tu recorrido aparecieron elementos relacionados con la curiosidad, el crecimiento y la búsqueda de nuevas posibilidades. Esto sugiere una disposición a aprender continuamente, ampliar perspectivas y desarrollar nuevas capacidades para responder a los desafíos de tu vida.';
+text='Tu brújula hoy señala hacia la expansión y el aprendizaje. Durante tu recorrido aparecieron elementos relacionados con la curiosidad, el crecimiento y la búsqueda de nuevas posibilidades. Esto sugiere una disposición a aprender continuamente, ampliar perspectivas y desarrollar nuevas capacidades para responder a los desafíos de tu vida.';
 
-}else if(score >= 20){
+}
+
+if(dominant==='impacto'){
 
 title='Impacto y Transformación';
 
-profile='Tu brújula hoy señala hacia el impacto positivo en los demás. Las decisiones que tomaste reflejan una orientación hacia el servicio, la influencia positiva y la construcción de relaciones significativas. Pareces encontrar sentido cuando contribuyes al crecimiento o bienestar de otras personas.';
+text='Tu brújula hoy señala hacia el impacto positivo en los demás. Las decisiones que tomaste reflejan una orientación hacia el servicio, la influencia positiva y la construcción de relaciones significativas. Pareces encontrar sentido cuando contribuyes al crecimiento o bienestar de otras personas.';
 
-}else if(score >= 17){
+}
 
-title='Propósito y Consciencia';
-
-profile='Tu brújula hoy señala hacia el propósito y la consciencia. Las respuestas seleccionadas sugieren una búsqueda profunda de sentido, comprensión personal y alineación entre lo que piensas, sientes y haces. Pareces estar explorando preguntas relacionadas con quién eres y cómo deseas vivir.';
-
-}else if(score >= 14){
-
-title='Fortaleza y Resiliencia';
-
-profile='Tu brújula hoy señala hacia la fortaleza interior. Tus elecciones reflejan una capacidad de perseverar, afrontar desafíos y continuar creciendo incluso en momentos de dificultad. Existe una orientación hacia el desarrollo de recursos internos que te permitan avanzar con mayor seguridad y confianza.';
-
-}else{
+if(dominant==='equilibrio'){
 
 title='Equilibrio y Bienestar';
 
-profile='Tu brújula hoy señala hacia el equilibrio y el bienestar. Tu recorrido muestra una búsqueda de estabilidad, serenidad y armonía. En este momento parece importante para ti construir bases sólidas que favorezcan tu bienestar interior y la calidad de vida en tus diferentes ámbitos.';
+text='Tu brújula hoy señala hacia el equilibrio y el bienestar. Tu recorrido muestra una búsqueda de estabilidad, serenidad y armonía. En este momento parece importante para ti construir bases sólidas que favorezcan tu bienestar interior y la calidad de vida en tus diferentes ámbitos.';
+
+}
+
+if(dominant==='fortaleza'){
+
+title='Fortaleza y Resiliencia';
+
+text='Tu brújula hoy señala hacia la fortaleza interior. Tus elecciones reflejan una capacidad de perseverar, afrontar desafíos y continuar creciendo incluso en momentos de dificultad. Existe una orientación hacia el desarrollo de recursos internos que te permitan avanzar con mayor seguridad y confianza.';
+
+}
+
+if(dominant==='proposito'){
+
+title='Propósito y Consciencia';
+
+text='Tu brújula hoy señala hacia el propósito y la consciencia. Las respuestas seleccionadas sugieren una búsqueda profunda de sentido, comprensión personal y alineación entre lo que piensas, sientes y haces. Pareces estar explorando preguntas relacionadas con quién eres y cómo deseas vivir.';
 
 }
 
 document.getElementById('resultTitle').innerText = title;
-
-document.getElementById('resultText').innerText = profile;
+document.getElementById('resultText').innerText = text;
 
 document.getElementById('progressFill').style.width='100%';
 

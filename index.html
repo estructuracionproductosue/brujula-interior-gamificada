@@ -691,24 +691,44 @@ document.getElementById('questionText').innerText='Exploración completada';
 
 document.getElementById('questionNumber').innerText='RESULTADO FINAL';
 
+let title='';
 let profile='';
 
 if(score >= 23){
 
-profile='Tu brújula interior refleja liderazgo humano, visión consciente y capacidad de transformación positiva.';
+title='Expansión y Aprendizaje';
 
-}else if(score >= 18){
+profile='Tu brújula hoy señala hacia la expansión y el aprendizaje. Durante tu recorrido aparecieron elementos relacionados con la curiosidad, el crecimiento y la búsqueda de nuevas posibilidades. Esto sugiere una disposición a aprender continuamente, ampliar perspectivas y desarrollar nuevas capacidades para responder a los desafíos de tu vida.';
 
-profile='Tu brújula interior muestra evolución constante, equilibrio y crecimiento personal progresivo.';
+}else if(score >= 20){
+
+title='Impacto y Transformación';
+
+profile='Tu brújula hoy señala hacia el impacto positivo en los demás. Las decisiones que tomaste reflejan una orientación hacia el servicio, la influencia positiva y la construcción de relaciones significativas. Pareces encontrar sentido cuando contribuyes al crecimiento o bienestar de otras personas.';
+
+}else if(score >= 17){
+
+title='Propósito y Consciencia';
+
+profile='Tu brújula hoy señala hacia el propósito y la consciencia. Las respuestas seleccionadas sugieren una búsqueda profunda de sentido, comprensión personal y alineación entre lo que piensas, sientes y haces. Pareces estar explorando preguntas relacionadas con quién eres y cómo deseas vivir.';
+
+}else if(score >= 14){
+
+title='Fortaleza y Resiliencia';
+
+profile='Tu brújula hoy señala hacia la fortaleza interior. Tus elecciones reflejan una capacidad de perseverar, afrontar desafíos y continuar creciendo incluso en momentos de dificultad. Existe una orientación hacia el desarrollo de recursos internos que te permitan avanzar con mayor seguridad y confianza.';
 
 }else{
 
-profile='Tu brújula interior busca estabilidad, serenidad y fortalecimiento gradual.';
+title='Equilibrio y Bienestar';
+
+profile='Tu brújula hoy señala hacia el equilibrio y el bienestar. Tu recorrido muestra una búsqueda de estabilidad, serenidad y armonía. En este momento parece importante para ti construir bases sólidas que favorezcan tu bienestar interior y la calidad de vida en tus diferentes ámbitos.';
+
 }
 
-document.getElementById('resultTitle').innerText='Tu proyección interior';
+document.getElementById('resultTitle').innerText = title;
 
-document.getElementById('resultText').innerText=profile;
+document.getElementById('resultText').innerText = profile;
 
 document.getElementById('progressFill').style.width='100%';
 
